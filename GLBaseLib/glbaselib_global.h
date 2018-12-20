@@ -1,0 +1,12 @@
+#ifndef GLBASELIB_GLOBAL_H
+#define GLBASELIB_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(GLBASELIB_LIBRARY)
+#  define GLBASELIBSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define GLBASELIBSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // GLBASELIB_GLOBAL_H
