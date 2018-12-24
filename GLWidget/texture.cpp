@@ -33,6 +33,7 @@ void  Texture::render()
     m_f->glVertexAttribPointer(Color_Location,3,GL_FLOAT,GL_FALSE,8*sizeof(GLfloat),(void*)(3*sizeof(GLfloat)));
     m_f->glVertexAttribPointer(Texc_Location,2,GL_FLOAT,GL_FALSE,8*sizeof(GLfloat),(void*)(6*sizeof(GLfloat)));
 
+    m_f->glAcglActiveTexture(GL_TEXTURE0);
     m_texture.bind();
     m_f->glDrawArrays(GL_TRIANGLE_FAN,0,4);
 
