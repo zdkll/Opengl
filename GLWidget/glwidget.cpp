@@ -3,6 +3,8 @@
 #include <QOpenGLContext>
 #include <QOpenGLFunctions_4_3_Core>
 
+#include "texture.h"
+
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {
@@ -19,9 +21,7 @@ void GLWidget::initializeGL()
     m_f = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_4_3_Core>();
     m_f->glClearColor(0,0,0,1);
 
-    m_render   = new BaseRender(m_f);
-    m_program = new ShaderProgram(this);
-    m_program->loadShader(":/vert.vert","/fag.fag");
+    m_render   = new Texture(m_f);
 
     m_render->initial();
 }

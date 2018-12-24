@@ -21,11 +21,13 @@ INCLUDEPATH += $$ROOT_PATH/GLBaseLib
 SOURCES += main.cpp\
         glwidget.cpp \
     baserender.cpp \
-    ambientlight.cpp
+    ambientlight.cpp \
+    texture.cpp
 
 HEADERS  += glwidget.h \
     baserender.h \
-    ambientlight.h
+    ambientlight.h \
+    texture.h
 
 RESOURCES += \
     qrc.qrc

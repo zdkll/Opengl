@@ -3,18 +3,26 @@
 
 #include <QOpenGLFunctions_4_3_Core>
 
-class BaseRender
+#include <QObject>
+#include <QtGui>
+
+#include "shaderprogram.h"
+
+class BaseRender : public QObject
 {
 public:
-    BaseRender(QOpenGLFunctions_4_3_Core *f);
+    BaseRender(QOpenGLFunctions_4_3_Core *f,QObject *parent = 0);
 
-public:
     virtual void  initial(){}
     virtual void  resize(int w,int h){}
     virtual void  render(){}
 
-private:
+    ShaderProgram *shaderProgram(){return m_program;}
+
+protected:
     QOpenGLFunctions_4_3_Core  *m_f;
+
+    ShaderProgram  *m_program;
 };
 
 #endif // BASERENDER_H

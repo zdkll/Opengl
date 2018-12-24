@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>frag.frag</file>
         <file>vert.vert</file>
+        <file>resources/texture/frag.frag</file>
+        <file>resources/texture/vert.vert</file>
+        <file>resources/texture/container2.png</file>
+        <file>resources/texture/container.jpg</file>
     </qresource>
 </RCC>
