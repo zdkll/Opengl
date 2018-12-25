@@ -21,7 +21,9 @@ void GLWidget::initializeGL()
     m_f = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_4_3_Core>();
     m_f->glClearColor(0,0,0,1);
 
-    m_render   = new Texture(m_f);
+    m_render = new Texture(m_f,this);
+
+    this->installEventFilter(m_render);
 
     m_render->initial();
 }

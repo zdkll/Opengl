@@ -8,18 +8,23 @@
 class Texture : public BaseRender
 {
 public:
-    Texture(QOpenGLFunctions_4_3_Core *f,QObject *parent = 0);
+    Texture(QOpenGLFunctions_4_3_Core *f,QWidget *parent);
 
     virtual void  initial();
     virtual void  resize(int w,int h);
     virtual void  render();
+
+protected:
+   void keyPressEvent(QKeyEvent *e);
 
 private:
     void  createProgram();
     void  makeObj();
 
     GLuint m_Vbo;
-    QOpenGLTexture m_texture;
+    GLint   m_mixFacLocation;
+    QOpenGLTexture m_texture1,m_texture2;
+    GLfloat m_mixFactor;
 };
 
 #endif // TEXTURE_H

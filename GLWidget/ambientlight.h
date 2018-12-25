@@ -6,7 +6,7 @@
 class AmbientLight : public BaseRender
 {
 public:
-    AmbientLight(QOpenGLFunctions_4_3_Core *f);
+    AmbientLight(QOpenGLFunctions_4_3_Core *f,QWidget *parent);
 
     void  initial();
     void  resize(int w,int h);

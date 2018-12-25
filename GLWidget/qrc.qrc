@@ -6,5 +6,6 @@
         <file>resources/texture/vert.vert</file>
         <file>resources/texture/container2.png</file>
         <file>resources/texture/container.jpg</file>
+        <file>resources/texture/awesomeface.png</file>
     </qresource>
 </RCC>

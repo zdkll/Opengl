@@ -1,7 +1,7 @@
 ﻿#include "ambientlight.h"
 
-AmbientLight::AmbientLight(QOpenGLFunctions_4_3_Core *f)
-    :BaseRender(f)
+AmbientLight::AmbientLight(QOpenGLFunctions_4_3_Core *f,QWidget *parent)
+    :BaseRender(f,parent)
 {
 
 }
