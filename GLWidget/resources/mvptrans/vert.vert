@@ -7,9 +7,13 @@ varying vec3 VColor;
 
 uniform mat4  transform;
 
+uniform mat4  model;
+uniform mat4  view;
+uniform mat4  projection;
+
 void main(void)
 {
-    gl_Position = transform*vec4(Vertex,1.0f);
+    gl_Position = projection*view*model*vec4(Vertex,1.0f);
 
     VColor = Color;
     TexCoord = Texc;

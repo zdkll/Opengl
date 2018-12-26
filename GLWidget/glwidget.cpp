@@ -4,6 +4,7 @@
 #include <QOpenGLFunctions_4_3_Core>
 
 #include "texture.h"
+#include "mvptrans.h"
 
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
@@ -21,7 +22,7 @@ void GLWidget::initializeGL()
     m_f = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_4_3_Core>();
     m_f->glClearColor(0,0,0,1);
 
-    m_render = new Texture(m_f,this);
+    m_render = new MvpTrans(m_f,this);
 
     this->installEventFilter(m_render);
 
@@ -37,8 +38,5 @@ void GLWidget::resizeGL(int w,int h)
 
 void GLWidget::paintGL()
 {
-    m_f->glClear(GL_COLOR_BUFFER_BIT);
-
     m_render->render();
-
 }

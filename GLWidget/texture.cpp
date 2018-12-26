@@ -4,11 +4,13 @@
 #define Color_Location   1
 #define Texc_Location     2
 
+
 Texture::Texture(QOpenGLFunctions_4_3_Core *f,QWidget *parent)
     :BaseRender(f,parent),m_texture1(QOpenGLTexture::Target2D)
-    ,m_texture2(QOpenGLTexture::Target2D)
+    ,m_texture2(QOpenGLTexture::Target2D),m_angle(0)
 {
     m_mixFactor = 0.2;
+    this->startTimer(100);
 }
 
 void Texture::initial()
@@ -25,6 +27,10 @@ void  Texture::resize(int w,int h)
 
 void Texture::render()
 {
+    QMatrix4x4 mat = m_trans;
+    mat.translate(QVector3D(0.5,-0.5,0));
+    mat.rotate(m_angle,0,0,1);
+    m_f->glUniformMatrix4fv(m_transLocation,1,GL_FALSE,mat.data());
     m_f->glUniform1f(m_mixFacLocation,m_mixFactor);
 
     m_f->glEnableVertexAttribArray(Vertex_Location);
@@ -44,6 +50,12 @@ void Texture::render()
 
     m_f->glDrawArrays(GL_TRIANGLE_FAN,0,4);
 
+    QMatrix4x4 mat1;
+    mat1.translate(QVector3D(-0.5f,0.5f,0));
+    mat1.scale(sinf(m_angle*(3.14159)/180.f),sinf(m_angle*(3.14159)/180.f),1);
+    m_f->glUniformMatrix4fv(m_transLocation,1,GL_FALSE,mat1.data());
+    m_f->glDrawArrays(GL_TRIANGLE_FAN,0,4);
+
     m_f->glDisableVertexAttribArray(Vertex_Location);
     m_f->glDisableVertexAttribArray(Color_Location);
     m_f->glDisableVertexAttribArray(Texc_Location);
@@ -57,6 +69,12 @@ void Texture::keyPressEvent(QKeyEvent *e)
         m_mixFactor = std::max<float>(m_mixFactor,0.0);
         m_widget->update();
     }
+}
+
+void Texture::timerEvent(QTimerEvent *e)
+{
+    m_angle += 1;
+    m_widget->update();
 }
 
 void Texture::createProgram()
@@ -74,6 +92,7 @@ void Texture::createProgram()
     m_program->bindAttributeLocation("Texc",Texc_Location);
 
     m_mixFacLocation = m_f->glGetUniformLocation(m_program->programId(),"MixFactor");
+    m_transLocation    = m_f->glGetUniformLocation(m_program->programId(),"transform");
 }
 
 void Texture::makeObj()

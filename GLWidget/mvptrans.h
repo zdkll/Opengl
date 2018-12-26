@@ -1,14 +1,14 @@
-﻿#ifndef TEXTURE_H
-#define TEXTURE_H
+﻿#ifndef MVPTRANS_H
+#define MVPTRANS_H
 
 #include <QOpenGLTexture>
 
 #include "baserender.h"
 
-class Texture : public BaseRender
+class MvpTrans : public BaseRender
 {
 public:
-    Texture(QOpenGLFunctions_4_3_Core *f,QWidget *parent);
+    MvpTrans(QOpenGLFunctions_4_3_Core *f,QWidget *parent);
 
     virtual void  initial();
     virtual void  resize(int w,int h);
@@ -24,11 +24,11 @@ private:
     void  makeObj();
 
     GLuint m_Vbo;
-    GLint   m_mixFacLocation,m_transLocation;
+    GLint   m_mixFacLocation,m_transLocation,m_modelLocation,m_viewLocation,m_projLocation;
     QOpenGLTexture m_texture1,m_texture2;
     GLfloat m_mixFactor;
     QMatrix4x4   m_trans;
     float      m_angle;
 };
 
-#endif // TEXTURE_H
+#endif // MVPTRANS_H

@@ -22,12 +22,15 @@ SOURCES += main.cpp\
         glwidget.cpp \
     baserender.cpp \
     ambientlight.cpp \
-    texture.cpp
+    texture.cpp \
+    mvptrans.cpp
 
 HEADERS  += glwidget.h \
     baserender.h \
     ambientlight.h \
-    texture.h
+    texture.h \
+    mvptrans.h \
+    publicdef.h
 
 RESOURCES += \
     qrc.qrc
