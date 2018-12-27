@@ -8,3 +8,5 @@ equals(TEMPLATE,lib){
 }else{
     DESTDIR = $$BIN_PATH
 }
+
+INCLUDEPATH += $$ROOT_PATH/include

@@ -11,10 +11,12 @@ DEFINES += GLBASELIB_LIBRARY
 
 include (../global.pri)
 
-SOURCES += shaderprogram.cpp
+SOURCES += shaderprogram.cpp \
+    camera.cpp
 
 HEADERS += shaderprogram.h\
-        glbaselib_global.h
+        glbaselib_global.h \
+    camera.h
 
 unix {
     target.path = /usr/lib
