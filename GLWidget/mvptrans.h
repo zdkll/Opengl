@@ -4,6 +4,7 @@
 #include <QOpenGLTexture>
 
 #include "baserender.h"
+#include "camera.h"
 
 class MvpTrans : public BaseRender
 {
@@ -15,9 +16,13 @@ public:
     virtual void  render();
 
 protected:
-   void keyPressEvent(QKeyEvent *e);
+    void keyPressEvent(QKeyEvent *e);
+    void timerEvent(QTimerEvent *e);
 
-   void timerEvent(QTimerEvent *e);
+    void mouseMoveEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
+
+    void wheelEvent(QWheelEvent *e);
 
 private:
     void  createProgram();
@@ -28,7 +33,11 @@ private:
     QOpenGLTexture m_texture1,m_texture2;
     GLfloat m_mixFactor;
     QMatrix4x4   m_trans;
-    float      m_angle;
+    float             m_angle;
+
+    Camera      m_camera;
+
+    float  m_fov = 45.0f;
 };
 
 #endif // MVPTRANS_H

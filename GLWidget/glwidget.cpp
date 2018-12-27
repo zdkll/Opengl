@@ -23,7 +23,6 @@ void GLWidget::initializeGL()
     m_f->glClearColor(0,0,0,1);
 
     m_render = new MvpTrans(m_f,this);
-
     this->installEventFilter(m_render);
 
     m_render->initial();

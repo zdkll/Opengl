@@ -11,6 +11,13 @@ MvpTrans::MvpTrans(QOpenGLFunctions_4_3_Core *f,QWidget *parent)
     ,m_texture2(QOpenGLTexture::Target2D),m_angle(0)
 {
     m_mixFactor = 0.2;
+
+    m_camera.initEuler(0,-90);
+
+    m_camera.setCameraPos(QVector3D(0,0,3.0f));
+    m_camera.setCameraFront(QVector3D(0,0,-1.0f));
+    m_camera.setCameraUp(QVector3D(0,1.0f,0));
+
     this->startTimer(100);
 }
 
@@ -34,18 +41,21 @@ void MvpTrans::render()
 
     QMatrix4x4 mat = m_trans;
     //mat.translate(QVector3D(0.5,-0.5,0));
-    QMatrix4x4 model;
-    model.rotate(m_angle,0.5,1,0);
+    //QMatrix4x4 model;
+    //model.rotate(m_angle,0.5,1,0);
     QMatrix4x4 view;
     //view.translate(0,0,-3.0f);
 
-    float radius = 10.0f;
-    float camx = sinf(m_angle*Pi/180.f)*radius;
-    float camz = cosf(m_angle*Pi/180.f)*radius;
-    view.lookAt();
+    //float radius = 10.0f;
+    //float camx = sinf(m_angle*Pi/180.f)*radius;
+    //float camz = cosf(m_angle*Pi/180.f)*radius;
+    //view.lookAt(QVector3D(camx,0,camz),QVector3D(0,0,0),QVector3D(0,1,0));
+
+    view.lookAt(m_camera.cameraPos(),m_camera.cameraPos() + m_camera.cameraFront()
+                ,m_camera.cameraUp());
 
     QMatrix4x4 projection;
-    projection.perspective(45.0f,float(m_widget->width())/float(m_widget->height()),0.1f,100.0f);//
+    projection.perspective(m_fov,float(m_widget->width())/float(m_widget->height()),0.1f,100.0f);//
 
     //m_f->glUniformMatrix4fv(m_transLocation,1,GL_FALSE,mat.data());
     //m_program->setUniformValue(m_modelLocation,model);
@@ -69,7 +79,7 @@ void MvpTrans::render()
     m_f->glActiveTexture(GL_TEXTURE1);
     m_texture2.bind();
 
-    //    m_f->glDrawArrays(GL_TRIANGLES,0,36);
+    //m_f->glDrawArrays(GL_TRIANGLES,0,36);
 
     //绘制10个立方体
     QVector3D cubePositions[] = {
@@ -85,15 +95,17 @@ void MvpTrans::render()
         QVector3D(-1.3f,  1.0f, -1.5f)
     };
     for(int i=0;i<10;i++){
-        QMatrix4x4 view1 = view;
-        view1.translate(cubePositions[i].x(),cubePositions[i].y(),cubePositions[i].z());
+        //        QMatrix4x4 view1 = view;
+        //        view1.translate(cubePositions[i].x(),cubePositions[i].y(),cubePositions[i].z());
 
         QMatrix4x4 model;
-        if(i%3 == 0)
-            model.rotate(m_angle,0.5,1,0);
+        model.translate(cubePositions[i].x(),cubePositions[i].y(),cubePositions[i].z());
+        model.rotate(20.f*i,1.0f,0.3f,0.5f);
+        //if(i%3 == 0)
+        //    model.rotate(m_angle,0.5,1,0);
 
         m_program->setUniformValue(m_modelLocation,model);
-        m_program->setUniformValue(m_viewLocation,view1);
+        //m_program->setUniformValue(m_viewLocation,view1);
         m_f->glDrawArrays(GL_TRIANGLES,0,36);
     }
 
@@ -110,12 +122,39 @@ void MvpTrans::keyPressEvent(QKeyEvent *e)
         m_mixFactor = std::max<float>(m_mixFactor,0.0);
         m_widget->update();
     }
+    if(e->key() == Qt::Key_W || e->key() == Qt::Key_A || e->key() == Qt::Key_S || e->key() == Qt::Key_D)
+    {
+        m_camera.keyPress(e->key());
+        m_widget->update();
+    }
 }
 
 void MvpTrans::timerEvent(QTimerEvent *e)
 {
     m_angle += 1;
     m_widget->update();
+}
+
+void MvpTrans::mouseMoveEvent(QMouseEvent *e)
+{
+    m_camera.moseMove(e->pos());
+    m_widget->update();
+}
+
+void MvpTrans::mouseReleaseEvent(QMouseEvent *e)
+{
+    m_camera.mouseRelease();
+}
+
+void MvpTrans::wheelEvent(QWheelEvent *e)
+{
+    if(m_fov>=1.0f && m_fov<=45.0f)
+    {
+        m_fov += e->angleDelta().y()/120;
+        m_fov = m_fov<1.0f?1.0f:m_fov;
+        m_fov = m_fov>45.0f?45.0f:m_fov;
+        m_widget->update();
+    }
 }
 
 void MvpTrans::createProgram()

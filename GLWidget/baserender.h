@@ -29,6 +29,8 @@ protected:
     virtual void mouseMoveEvent(QMouseEvent *){}
     virtual void mouseReleaseEvent(QMouseEvent *){}
 
+    virtual void wheelEvent(QWheelEvent *){}
+
     QOpenGLFunctions_4_3_Core  *m_f;
     ShaderProgram  *m_program;
     QWidget            *m_widget;

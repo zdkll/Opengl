@@ -20,7 +20,7 @@ bool BaseRender::eventFilter(QObject *watched, QEvent *event)
             keyPressEvent(keyEvent);
         else
             keyReleaseEvent(keyEvent);
-    }else if(event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonRelease)
+    }else if(event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseMove || event->type() == QEvent::MouseButtonRelease)
     {
         QMouseEvent *msEvent = static_cast<QMouseEvent *>(event);
         if(event->type() == QEvent::MouseButtonPress)
@@ -29,7 +29,11 @@ bool BaseRender::eventFilter(QObject *watched, QEvent *event)
             mouseMoveEvent(msEvent);
         else if(event->type() == QEvent::MouseButtonRelease)
             mouseReleaseEvent(msEvent);
+    }else if(event->type() == QEvent::Wheel){
+        QWheelEvent *wlEvent = static_cast<QWheelEvent *>(event);
+        wheelEvent(wlEvent);
     }
+
     return QObject::eventFilter(watched,event);
 }
 
