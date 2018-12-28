@@ -13,6 +13,7 @@ class BaseRender : public QObject
 {
 public:
     BaseRender(QOpenGLFunctions_4_3_Core *f,QWidget *parent);
+    virtual ~BaseRender();
 
     virtual void  initial(){}
     virtual void  resize(int w,int h){}

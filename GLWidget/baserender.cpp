@@ -12,6 +12,11 @@ BaseRender::BaseRender(QOpenGLFunctions_4_3_Core *f,QWidget *parent)
 
 }
 
+BaseRender::~BaseRender()
+{
+  delete m_program;
+}
+
 bool BaseRender::eventFilter(QObject *watched, QEvent *event)
 {
     if(event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease){

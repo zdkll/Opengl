@@ -23,14 +23,19 @@ SOURCES += main.cpp\
     baserender.cpp \
     ambientlight.cpp \
     texture.cpp \
-    mvptrans.cpp
+    mvptrans.cpp \
+    lighter.cpp
 
 HEADERS  += glwidget.h \
     baserender.h \
     ambientlight.h \
     texture.h \
     mvptrans.h \
-    publicdef.h
+    publicdef.h \
+    lighter.h
 
 RESOURCES += \
     qrc.qrc
+
+DISTFILES += \
+    resources/light/lamp.frag

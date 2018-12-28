@@ -11,5 +11,8 @@
         <file>resources/mvptrans/container.jpg</file>
         <file>resources/mvptrans/frag.frag</file>
         <file>resources/mvptrans/vert.vert</file>
+        <file>resources/light/vert.vert</file>
+        <file>resources/light/light.frag</file>
+        <file>resources/light/lamp.frag</file>
     </qresource>
 </RCC>
