@@ -45,10 +45,13 @@ void Lighter::render()
     QMatrix4x4  projection;
     projection.perspective(m_fov,float(m_widget->width())/float(m_widget->height()),0.1f,100.0f);
 
+    QMatrix4x4 normModel =  model.inverted().transposed();
     m_program->bind();
     m_program->setUniformValue("model",model);
     m_program->setUniformValue("view",view);
     m_program->setUniformValue("projection",projection);
+    m_program->setUniformValue("normModel",normModel);
+    m_program->setUniformValue("viewPos",m_camera.cameraPos());
 
     m_program->setUniformValue("objectColor",QVector3D(1.0f, 0.5f, 0.31f));
     m_program->setUniformValue("lightColor",QVector3D(1.0f, 1.0f, 1.0f));
@@ -173,7 +176,9 @@ void Lighter::makeObj()
 
     m_f->glVertexAttribPointer(m_cubeVertLocation,3,GL_FLOAT,GL_FALSE,6*sizeof(GLfloat),0);
     m_f->glEnableVertexAttribArray(m_cubeVertLocation);
+
     m_f->glVertexAttribPointer(m_cubeNormalLocation,3,GL_FLOAT,GL_FALSE,6*sizeof(GLfloat),(void*)(3*sizeof(GLfloat)));
+    m_f->glEnableVertexAttribArray(m_cubeNormalLocation);
 
     m_f->glGenVertexArrays(1,&m_lightVao);
     m_f->glBindVertexArray(m_lightVao);

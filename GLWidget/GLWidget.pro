@@ -37,5 +37,3 @@ HEADERS  += glwidget.h \
 RESOURCES += \
     qrc.qrc
 
-DISTFILES += \
-    resources/light/lamp.frag
