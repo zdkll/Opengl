@@ -11,6 +11,7 @@ public:
     void  initial();
     void  resize(int w,int h);
     void  render();
+
 };
 
 #endif // AMBIENTLIGHT_H

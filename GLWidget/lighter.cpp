@@ -57,6 +57,10 @@ void Lighter::render()
     m_program->setUniformValue("lightColor",QVector3D(1.0f, 1.0f, 1.0f));
 
     m_program->setUniformValue("lightPos",lightPos);
+    m_program->setUniformValue("material.ambient",QVector3D(1.0f, 0.5f, 0.31f));
+    m_program->setUniformValue("material.diffuse",QVector3D(1.0f, 0.5f, 0.31f));
+    m_program->setUniformValue("material.specular",QVector3D(0.5f, 0.5f, 0.5f));
+    m_program->setUniformValue("material.shininess", 32.0f);
 
     m_f->glBindVertexArray(m_cubeVao);
     m_f->glDrawArrays(GL_TRIANGLES,0,36);

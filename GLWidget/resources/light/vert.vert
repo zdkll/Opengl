@@ -10,6 +10,8 @@ uniform mat4  normModel;
 out vec3 fragPos;
 out vec3 Normal;
 
+
+
 void main(void)
 {
     gl_Position = projection*view*model*vec4(Vertex,1.0f);

@@ -14,5 +14,7 @@
         <file>resources/light/vert.vert</file>
         <file>resources/light/light.frag</file>
         <file>resources/light/lamp.frag</file>
+        <file>resources/assimp/vert.vert</file>
+        <file>resources/assimp/frag.frag</file>
     </qresource>
 </RCC>
