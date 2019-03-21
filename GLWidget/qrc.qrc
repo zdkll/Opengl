@@ -16,5 +16,7 @@
         <file>resources/light/lamp.frag</file>
         <file>resources/assimp/vert.vert</file>
         <file>resources/assimp/frag.frag</file>
+        <file>resources/redbook/render1_1.frag</file>
+        <file>resources/redbook/render1_1.vert</file>
     </qresource>
 </RCC>

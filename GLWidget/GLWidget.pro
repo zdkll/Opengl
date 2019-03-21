@@ -14,44 +14,45 @@ TEMPLATE = app
 
 include (../global.pri)
 
-LIBS +=  -L$$LIB_PATH  -lGLBaseLib
+LIBS +=  -L$$LIB_PATH -lGLBaseLib  -lGLRender
 
 INCLUDEPATH += $$ROOT_PATH/GLBaseLib \
+                               $$ROOT_PATH/GLRender \
                              $$THIRDPARTY_PATH/include
 
 THIRDPARTY_LIB_PATH =
 CONFIG(debug,debug|release){
-    LIBS += $$THIRDPARTY_PATH/lib/debug    -lassimpd
+    LIBS += -L$$THIRDPARTY_PATH/lib/debug    -lassimpd
     THIRDPARTY_LIB_PATH = $$THIRDPARTY_PATH/lib/debug
 }else{
-    LIBS += $$THIRDPARTY_PATH/lib/release  -lassimp
+    LIBS += -L$$THIRDPARTY_PATH/lib/release  -lassimp
     THIRDPARTY_LIB_PATH = $$THIRDPARTY_PATH/lib/release
 }
 
 SOURCES += main.cpp\
-        glwidget.cpp \
-    baserender.cpp \
     ambientlight.cpp \
     texture.cpp \
     mvptrans.cpp \
     lighter.cpp \
-    assimptest.cpp
+    assimptest.cpp \
+    redbook/render1_1.cpp
 
-HEADERS  += glwidget.h \
-    baserender.h \
+HEADERS  += \
     ambientlight.h \
     texture.h \
     mvptrans.h \
     publicdef.h \
     lighter.h \
-    assimptest.h
+    assimptest.h \
+    redbook/render1_1.h
 
 RESOURCES += \
     qrc.qrc
-
 
 win32{
 target.path = $$BIN_PATH
 target.files = $$THIRDPARTY_LIB_PATH/*.dll
 INSTALLS += target
 }
+
+

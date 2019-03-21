@@ -1,5 +1,6 @@
 ﻿#include "assimptest.h"
 
+#include <QOpenGLFunctions_4_3_Core>
 
 void  Model::loadModel(std::string path)
 {
@@ -18,7 +19,7 @@ void Model::processMesh(aiMesh *mesh,aiScene *scene)
 
 QVector<Texture> Model::loadMaterialTextures(aiMaterial *mat,aiTextureType type,std::string typeName)
 {
-
+   return QVector<Texture>();
 }
 
 
@@ -57,8 +58,8 @@ void AssimpTest::setupMesh()
     m_f->glBufferData(GL_ARRAY_BUFFER,data.size()*sizeof(float),data.data(),GL_STATIC_DRAW);
 
     m_f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,m_ebo);
-    m_f->glBufferData(GL_ELEMENT_ARRAY_BUFFER,m_mesh.indices * sizeof (unsigned int),m_mesh.indices.data()
-                      ,GL_STATIC_DRAW);
+//    m_f->glBufferData(GL_ELEMENT_ARRAY_BUFFER,m_mesh.indices * sizeof (unsigned int),m_mesh.indices.data()
+//                      ,GL_STATIC_DRAW);
 
     //顶点位置
     m_f->glEnableVertexAttribArray(0);
