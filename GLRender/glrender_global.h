@@ -1,0 +1,12 @@
+#ifndef GLRENDER_GLOBAL_H
+#define GLRENDER_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(GLRENDER_LIBRARY)
+#  define GLRENDERSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define GLRENDERSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // GLRENDER_GLOBAL_H
