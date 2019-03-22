@@ -3,14 +3,15 @@
 #include <QOpenGLContext>
 #include <QOpenGLFunctions_4_3_Core>
 
-#include "texture.h"
-#include "mvptrans.h"
-#include "lighter.h"
+#include "shaderprogram.h"
+#include "baserender.h"
 
-GLWidget::GLWidget(QWidget *parent)
-    : QOpenGLWidget(parent)
+GLWidget::GLWidget(BaseRender *render,QWidget *parent)
+    : QOpenGLWidget(parent),m_render(render)
 {
-
+    m_render->setParent(this);
+    m_render->setWidget(this);
+    this->installEventFilter(m_render);
 }
 
 GLWidget::~GLWidget()
@@ -23,9 +24,7 @@ void GLWidget::initializeGL()
     m_f = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_4_3_Core>();
     m_f->glClearColor(0,0,0,1);
 
-    m_render = new Lighter(m_f,this);
-    this->installEventFilter(m_render);
-
+    m_render->setOpenglFunctions(m_f);
     m_render->initial();
 }
 

@@ -4,16 +4,17 @@
 #include <QWidget>
 #include <QOpenGLWidget>
 
-#include "shaderprogram.h"
-#include "ambientlight.h"
 
+#include "glrender_global.h"
+
+class BaseRender;
 class QOpenGLFunctions_4_3_Core;
-class GLWidget : public QOpenGLWidget
+class GLRENDERSHARED_EXPORT GLWidget : public QOpenGLWidget
 {
     Q_OBJECT
 
 public:
-    GLWidget(QWidget *parent = 0);
+    GLWidget(BaseRender *render,QWidget *parent = 0);
 
     ~GLWidget();
 
@@ -26,7 +27,6 @@ private:
     BaseRender *m_render;
     QOpenGLFunctions_4_3_Core *m_f;
 
-    ShaderProgram  *m_program;
 };
 
 #endif // GLWIDGET_H

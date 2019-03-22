@@ -1,10 +1,15 @@
 ﻿#include "baserender.h"
 
-
 #include <QEvent>
 #include <QMouseEvent>
 #include <QKeyEvent>
 
+BaseRender::BaseRender(QWidget *parent)
+    :QObject(parent),m_f(0),
+      m_widget(parent),m_program(new ShaderProgram(this))
+{
+
+}
 
 BaseRender::BaseRender(QOpenGLFunctions_4_3_Core *f,QWidget *parent)
     :QObject(parent),m_f(f),m_widget(parent),m_program(new ShaderProgram(this))
@@ -14,7 +19,17 @@ BaseRender::BaseRender(QOpenGLFunctions_4_3_Core *f,QWidget *parent)
 
 BaseRender::~BaseRender()
 {
-  delete m_program;
+
+}
+
+void BaseRender::setWidget(QWidget *wg)
+{
+    m_widget = wg;
+}
+
+void BaseRender::setOpenglFunctions(QOpenGLFunctions_4_3_Core *f)
+{
+    m_f = f;
 }
 
 bool BaseRender::eventFilter(QObject *watched, QEvent *event)

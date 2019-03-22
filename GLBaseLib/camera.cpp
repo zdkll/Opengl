@@ -46,10 +46,8 @@ void Camera::moseMove(const QPoint& pt)
     m_yaw += xoffset;
     m_pitch+= yoffset;
 
-    if(m_pitch>89.0f)
-        m_pitch = 89.0f;
-    if(m_pitch<-89.0f)
-        m_pitch = -89.0f;
+    if(m_pitch>89.0f) m_pitch = 89.0f;
+    if(m_pitch<-89.0f)  m_pitch = -89.0f;
 
     QVector3D front;
     front.setX(cos(qDegreesToRadians(m_yaw)) * cos(qDegreesToRadians(m_pitch)));

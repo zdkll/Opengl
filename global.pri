@@ -2,6 +2,7 @@ ROOT_PATH = $$PWD
 
 LIB_PATH = $$ROOT_PATH/lib
 BIN_PATH = $$ROOT_PATH/bin
+THIRDPARTY_PATH = $$ROOT_PATH/thirdparty
 
 equals(TEMPLATE,lib){
      DESTDIR = $$LIB_PATH

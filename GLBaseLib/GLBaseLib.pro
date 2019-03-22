@@ -18,6 +18,9 @@ HEADERS += shaderprogram.h\
         glbaselib_global.h \
     camera.h
 
+
+
+
 unix {
     target.path = /usr/lib
     INSTALLS += target

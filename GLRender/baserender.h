@@ -6,21 +6,28 @@
 
 #include <QObject>
 #include <QtGui>
+#include <QScopedPointer>
 
 #include "shaderprogram.h"
+#include "glrender_global.h"
 
-class BaseRender : public QObject
+class GLRENDERSHARED_EXPORT BaseRender : public QObject
 {
 public:
-    BaseRender(QOpenGLFunctions_4_3_Core *f,QWidget *parent);
+    BaseRender(QWidget *parent = 0) ;
+    BaseRender(QOpenGLFunctions_4_3_Core *f,QWidget *parent = 0);
     virtual ~BaseRender();
+
+    void setWidget(QWidget *);
+    void setOpenglFunctions(QOpenGLFunctions_4_3_Core *f);
 
     virtual void  initial(){}
     virtual void  resize(int w,int h){}
     virtual void  render(){}
 
-    ShaderProgram *shaderProgram(){return m_program;}
+    ShaderProgram *shaderProgram(){return m_program.data();}
 
+    void update(){if(m_widget) m_widget->update();}
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
 
@@ -33,8 +40,8 @@ protected:
     virtual void wheelEvent(QWheelEvent *){}
 
     QOpenGLFunctions_4_3_Core  *m_f;
-    ShaderProgram  *m_program;
-    QWidget            *m_widget;
+    QScopedPointer<ShaderProgram>   m_program;
+    QWidget              *m_widget;
 };
 
 #endif // BASERENDER_H
